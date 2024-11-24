@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { AuthRepository, CustomError, RegisterUserDto } from '../../domain'
 import { JwtAdapter } from '../../config/jwt'
+import { UserModel } from '../../data/mongodb'
 
 export class AuthController {
   // Dependency injection
@@ -35,5 +36,11 @@ export class AuthController {
     res.json({
       message: 'loginUser controller',
     })
+  }
+
+  getUsers = (req: Request, res: Response) => {
+    UserModel.find()
+      .then((users) => res.json({ user: req.body.user }))
+      .catch(() => res.status(500).json({ error: 'Internal Server Error' }))
   }
 }
