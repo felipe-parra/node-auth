@@ -3,7 +3,7 @@ import { JwtAdapter } from '../../config/jwt'
 import { UserModel } from '../../data/mongodb'
 
 export class AuthMiddleware {
-  static validateJwt = async (
+  static readonly validateJwt = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -19,7 +19,7 @@ export class AuthMiddleware {
       return
     }
 
-    const token = authorization.split(' ').at(1) || ''
+    const token = authorization.split(' ').at(1) ?? ''
     try {
       const payload = await JwtAdapter.validateToken<{ id: string }>(token)
 
