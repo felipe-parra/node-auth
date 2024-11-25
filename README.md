@@ -7,13 +7,13 @@ _Clean Architecture_
 1. Clone repo
 
 ```bash
-git clone
+git clone https://github.com/felipe-parra/node-auth.git
 ```
 
 2. Move to directory
 
 ```bash
-cd
+cd node-auth
 ```
 
 3. Install packages
