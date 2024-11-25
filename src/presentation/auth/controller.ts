@@ -12,7 +12,7 @@ import { UserModel } from '../../data/mongodb'
 export class AuthController {
   // Dependency injection
   constructor(private readonly authRepository: AuthRepository) {}
-  private handleError = (error: unknown, res: Response) => {
+  private readonly handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ error: error.message })
     }
