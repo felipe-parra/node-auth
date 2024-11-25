@@ -1,7 +1,5 @@
 import { JwtAdapter } from '../../../config/jwt'
-import { LoginUserDto } from '../../dtos/auth/login-user.dto'
-import { CustomError } from '../../errors/custom.error'
-import { AuthRepository } from '../../repositories/auth.repository'
+import { AuthRepository, CustomError, LoginUserDto } from '../../'
 
 interface UserToken {
   token: string
