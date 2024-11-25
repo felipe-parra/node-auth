@@ -7,7 +7,7 @@ import {
   RegisterUserDto,
   UserEntity,
 } from '../../domain'
-import { UserMapper } from '../mappers/user.mapper'
+import { UserMapper } from '../'
 
 type HashFunction = (password: string) => string
 type CompareFunction = (password: string, hashed: string) => boolean
