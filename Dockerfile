@@ -1,5 +1,5 @@
-# Use Node.js Alpine version as the base image
-FROM node:18-alpine
+# Use Node.js 21 Alpine version as the base image
+FROM node:21-alpine
 
 # Install bash and build tools required for dependencies
 RUN apk add --no-cache bash build-base
@@ -27,4 +27,3 @@ EXPOSE ${PORT:-3000}
 
 # Define the command to run the application
 CMD ["node", "dist/app.js"]
-
