@@ -30,7 +30,7 @@ jobs:
       - name: Build the app
         run: pnpm run build
 
-      # Step 5: Deploy to Heroku
+      # Step 5: Deploy to Heroku via Container Registry
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -39,15 +39,17 @@ jobs:
           # Install the Heroku CLI
           curl https://cli-assets.heroku.com/install.sh | sh
 
-          # Login to Heroku using the API key
-          echo "$HEROKU_API_KEY" | heroku auth:token
+          # Login to Heroku Container Registry
+          echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
 
-          # Add Heroku as a remote
-          heroku git:remote -a "$HEROKU_APP_NAME"
+          # Build and Push Docker Image
+          docker build -t registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web .
+          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
 
-          # Deploy the app
-          git push heroku main
-        # Step 6: Post-deploy health check
+          # Release the Docker Image
+          heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
+
+      # Step 6: Post-deploy health check
       - name: Health check
         run: |
           curl -f https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/ || exit 1
